@@ -26,10 +26,10 @@ describe Employee, type: :model do
 
     it 'should have employee attributes' do
       expect(subject.count).to eq 3
-      expect(subject[0].count).to eq 6
-      expect(subject[0]).to include('Name', 'Email', 'Start date', 'Total benefits')
+      expect(subject[0].count).to eq 7
+      expect(subject[0]).to include('Name', 'Email', 'Start date', 'Total benefits', 'Average benefit all months')
       expect(subject[1]).to include(employee.name, employee.email, employee.start_date, '5000', '2500')
-      expect(subject[2]).to include(other_employee.name, other_employee.email, other_employee.start_date, '7500', '5000', '2500')
+      expect(subject[2]).to include(other_employee.name, other_employee.email, other_employee.start_date, '7500', '3750', '5000', '2500')
     end
   end
 end

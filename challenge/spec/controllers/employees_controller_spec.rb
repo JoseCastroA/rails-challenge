@@ -32,7 +32,7 @@ RSpec.describe EmployeesController, type: :controller do
       end
 
       it 'should have employees data' do
-        expect(subject.body).to include('Name,Email,Start date,Total benefits')
+        expect(subject.body).to include('Name,Email,Start date,Total benefits,Average benefit all months')
         employees.each do |employee|
           expect(subject.body).to include(employee.name, employee.email, employee.start_date)
         end
