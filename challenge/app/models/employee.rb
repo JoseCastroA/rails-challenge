@@ -1,11 +1,20 @@
 class Employee < ApplicationRecord
   include ::CsvGenerator
 
-  COLUMN_NAMES = %w[name email start_date total_benefits].freeze
+  COLUMN_NAMES = %w[name email start_date total_benefits average_benefit_all_months].freeze
 
   # Associations
   belongs_to :employee_invite
   has_many :benefits
+
+  def average_benefit_all_months
+    total_months = total_months_worked
+    total_months.zero? ? 0 : total_benefits / total_months_worked
+  end
+
+  def total_months_worked
+    benefits.pluck(:month).uniq.count
+  end
 
   def start_date
     read_attribute(:start_date).strftime('%Y/%m/%d')
@@ -28,7 +37,7 @@ class Employee < ApplicationRecord
     end
 
     def headers(months)
-      COLUMN_NAMES.map { |c| c.gsub('_', ' ').try(:capitalize) } + months.map { |m| m.strftime('%d/%Y') }
+      COLUMN_NAMES.map { |c| c.gsub('_', ' ').try(:capitalize) } + months.map { |m| m.strftime('%m/%Y') }
     end
 
     def rows(months)
