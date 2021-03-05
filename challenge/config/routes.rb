@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :employees
+  root "employees#index"
+  resources :employees do
+    get :report, on: :collection
+  end
 end
